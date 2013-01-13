@@ -17,6 +17,7 @@
 package com.viewpagerindicator;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -52,6 +53,8 @@ public class TabPageIndicator extends HorizontalScrollView implements PageIndica
 
     private Runnable mTabSelector;
 
+    private Typeface mFontface;
+    
     private final OnClickListener mTabClickListener = new OnClickListener() {
         public void onClick(View view) {
             TabView tabView = (TabView)view;
@@ -76,10 +79,12 @@ public class TabPageIndicator extends HorizontalScrollView implements PageIndica
 
     public TabPageIndicator(Context context) {
         this(context, null);
+        mFontface = Typeface.createFromAsset(context.getAssets(), "fonts/mylai.ttf");
     }
 
     public TabPageIndicator(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mFontface = Typeface.createFromAsset(context.getAssets(), "fonts/mylai.ttf");
         setHorizontalScrollBarEnabled(false);
 
         mTabLayout = new IcsLinearLayout(context, R.attr.vpiTabPageIndicatorStyle);
@@ -153,6 +158,7 @@ public class TabPageIndicator extends HorizontalScrollView implements PageIndica
         final TabView tabView = new TabView(getContext());
         tabView.mIndex = index;
         tabView.setFocusable(true);
+        tabView.setTypeface(mFontface);
         tabView.setOnClickListener(mTabClickListener);
         tabView.setText(text);
 
